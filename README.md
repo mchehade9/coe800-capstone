@@ -1,3 +1,3 @@
 # coe800-smartbuild
 
-Main reamde for whole project
+Main readme for whole project
