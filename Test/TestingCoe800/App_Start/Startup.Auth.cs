@@ -62,6 +62,12 @@ namespace TestingCoe800
             {
                 ClientId = "964749265947-05l61v2op60j744sa6h478vki8nv7ibc.apps.googleusercontent.com",
                ClientSecret = "xCftSD_1AsVxsxWgJzNYw1fR"
+
+               //for local hosting comment the above and uncomment this 
+               //
+
+               // ClientId = "964749265947-vp48pkf62j86j19kr08r03iu8d88nlj8.apps.googleusercontent.com",
+               //ClientSecret = "inmBnbe1G9RZLqLpV4paHn0L"
            });
         }
 
