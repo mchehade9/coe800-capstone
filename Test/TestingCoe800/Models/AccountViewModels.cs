@@ -86,6 +86,8 @@ namespace TestingCoe800.Models
         public string ConfirmPassword { get; set; }
 
         
+
+        
         [Display(Name ="UserRoles")]
         public string UserRoles { get; set; }
     }

@@ -205,6 +205,10 @@
     <Compile Include="Migrations\202001130035459_InitialCreate.Designer.cs">
       <DependentUpon>202001130035459_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001142013211_CreatingRoles.cs" />
+    <Compile Include="Migrations\202001142013211_CreatingRoles.Designer.cs">
+      <DependentUpon>202001142013211_CreatingRoles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -289,6 +293,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202001130035459_InitialCreate.resx">
       <DependentUpon>202001130035459_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001142013211_CreatingRoles.resx">
+      <DependentUpon>202001142013211_CreatingRoles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

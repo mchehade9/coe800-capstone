@@ -61,14 +61,14 @@ namespace TestingCoe800
 
            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "964749265947-05l61v2op60j744sa6h478vki8nv7ibc.apps.googleusercontent.com",
-               ClientSecret = "xCftSD_1AsVxsxWgJzNYw1fR"
+                //ClientId = "964749265947-05l61v2op60j744sa6h478vki8nv7ibc.apps.googleusercontent.com",
+               //ClientSecret = "xCftSD_1AsVxsxWgJzNYw1fR"
 
                //for local hosting comment the above and uncomment this 
                //
 
-              //ClientId = "964749265947-vp48pkf62j86j19kr08r03iu8d88nlj8.apps.googleusercontent.com",
-              // ClientSecret = "inmBnbe1G9RZLqLpV4paHn0L"
+             ClientId = "964749265947-vp48pkf62j86j19kr08r03iu8d88nlj8.apps.googleusercontent.com",
+               ClientSecret = "inmBnbe1G9RZLqLpV4paHn0L"
            });
 
             createRoles();
@@ -80,16 +80,17 @@ namespace TestingCoe800
                 // In Startup iam creating first Admin Role and creating a default Admin User     
                 if (!roleManager.RoleExists("Admin"))
                 {
-                    // first we create Admin rool    
+                    // first we create Admin role    
                     var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                     role.Name = "Admin";
                     roleManager.Create(role);
                     //Here we create a Admin super user who will maintain the website                   
 
                     var user = new ApplicationUser();
-                    user.UserName = "Jawad";
+
                     user.Email = "elahmarj@gmail.com";
-                    string userPWD = "Jawad@123";
+                    user.UserRole = "Admin";
+                    string userPWD = "Jawad.123";
                     var chkUser = UserManager.Create(user, userPWD);
                     //Add default User to Role Admin    
                     if (chkUser.Succeeded)

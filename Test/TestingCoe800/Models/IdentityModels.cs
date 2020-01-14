@@ -12,7 +12,7 @@ namespace TestingCoe800.Models
     public class ApplicationUser : IdentityUser
     {
       
-
+        public string UserRole { get; set; }
         
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
