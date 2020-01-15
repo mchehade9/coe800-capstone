@@ -8,7 +8,13 @@ namespace TestingCoe800.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
-        public string RoleID { get; set; }
+
+        [Required]
+
+        [Display(Name = "UserRoles")]
+
+        public string UserRoles { get; set; } = "Guest";
+
     }
 
     public class ExternalLoginListViewModel
@@ -60,7 +66,7 @@ namespace TestingCoe800.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        public string RoleID { get; set; }
+      
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
@@ -85,11 +91,13 @@ namespace TestingCoe800.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        
 
-        
-        [Display(Name ="UserRoles")]
-        public string UserRoles { get; set; }
+
+        [Required]
+
+        [Display(Name = "UserRoles")]
+
+        public string UserRoles { get; set; } = "Guest";
     }
 
     public class ResetPasswordViewModel

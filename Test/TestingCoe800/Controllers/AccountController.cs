@@ -348,7 +348,7 @@ namespace TestingCoe800.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email , RoleID="3"});
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email , UserRoles = "Guest" });
             }
         }
 
@@ -372,7 +372,7 @@ namespace TestingCoe800.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email , UserRole=model.UserRoles };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
