@@ -3,7 +3,7 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
 
@@ -13,15 +13,27 @@
                 <li>
                     @Html.ActionLink("Hello Admin " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                 </li>
-                
-                <li>@Html.ActionLink("Create Accounts ", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-            }
 
-        }
 
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
-    
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Manage
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <ul>
+                            <li>@Html.ActionLink("Manage Accounts ", "ManageAccounts", "Manage", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            <li>@Html.ActionLink("Create Accounts ", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        </ul>
+                        </div>
+                </li>
+
+                }
+
+                }
+
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            </ul>
+
     }
 }
 else

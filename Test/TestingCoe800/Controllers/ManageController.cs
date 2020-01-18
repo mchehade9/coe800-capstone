@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -13,12 +14,10 @@ namespace TestingCoe800.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public ManageController()
-        {
-        }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
@@ -26,6 +25,16 @@ namespace TestingCoe800.Controllers
             SignInManager = signInManager;
         }
 
+        public ManageController()
+        {
+        }
+        public ActionResult ManageAccounts()
+        {
+            UsersDBEntities User = new UsersDBEntities();
+            var User_data = User.AspNetUsers.ToList();
+            ViewBag.userdetails = User_data;
+            return View();
+        }
         public ApplicationSignInManager SignInManager
         {
             get
@@ -37,7 +46,7 @@ namespace TestingCoe800.Controllers
                 _signInManager = value; 
             }
         }
-
+        
         public ApplicationUserManager UserManager
         {
             get
@@ -52,6 +61,13 @@ namespace TestingCoe800.Controllers
 
         //
         // GET: /Manage/Index
+        public ActionResult Index()
+        {
+            return View();
+           
+        }
+       
+
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -129,7 +145,7 @@ namespace TestingCoe800.Controllers
             }
             return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
         }
-
+       
         //
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]
@@ -321,7 +337,7 @@ namespace TestingCoe800.Controllers
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
@@ -386,4 +402,5 @@ namespace TestingCoe800.Controllers
 
 #endregion
     }
+   
 }

@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "Manage";
+}
+<h1>Manage Accounts in the System</h1>
+
+
+<table class="table">
+
+    <tr>
+        <th>
+           Email
+        </th>
+        <th>
+            FirstName
+        </th>
+        <th>
+            LastName
+        </th>
+        <th>
+          Role
+        </th>
+        <th></th>
+    </tr>
+    
+    @foreach (var item in ViewBag.userdetails)
+    {
+        <tr>
+
+            <td>
+                @item.Email
+            </td>
+            <td>
+               @item.FirstName
+            </td>
+            <td>
+              @item.LastName
+            </td>
+            <td>
+                @item.UserRole
+            </td>
+        </tr>
+    }
+ 
+</table>
+       
+

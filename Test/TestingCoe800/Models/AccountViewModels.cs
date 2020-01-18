@@ -2,7 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace TestingCoe800.Models
-{ 
+{
+
+    
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
@@ -14,6 +17,19 @@ namespace TestingCoe800.Models
         [Display(Name = "UserRoles")]
 
         public string UserRoles { get; set; } = "Guest";
+
+        
+
+        [Display(Name = "FirstName")]
+
+        public string FirstName { get; set; }
+        
+
+        [Display(Name = "LastName")]
+
+        public string LastName { get; set; } 
+
+
 
     }
 
@@ -91,7 +107,13 @@ namespace TestingCoe800.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        [Display(Name ="FirstName")]
+        public string FirstName { get; set; }
 
+        [Required]
+        [Display(Name = "LastName")]
+        public string LastName { get; set; }
 
         [Required]
 
