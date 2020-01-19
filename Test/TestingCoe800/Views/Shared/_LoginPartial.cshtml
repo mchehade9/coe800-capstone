@@ -8,13 +8,13 @@
     <ul class="nav navbar-nav navbar-right">
 
 
+
+        <li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+
         @{ if (User.IsInRole("Admin"))
             {
-                <li>
-                    @Html.ActionLink("Hello Admin " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                </li>
-
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Manage
@@ -22,17 +22,17 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <ul>
                             <li>@Html.ActionLink("Manage Accounts ", "ManageAccounts", "Manage", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                            <li>@Html.ActionLink("Create Accounts ", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            
                         </ul>
-                        </div>
+                    </div>
                 </li>
 
-                }
+            }
 
-                }
+        }
 
-                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-            </ul>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
 
     }
 }

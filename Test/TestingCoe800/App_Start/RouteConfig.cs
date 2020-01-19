@@ -18,6 +18,11 @@ namespace TestingCoe800
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+            name: "Manage",
+            url: "{controller}/{action}",
+            defaults: new { controller = "Manage", action = "DeleteUser" }
+        );
         }
     }
 }

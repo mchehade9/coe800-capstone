@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -7,24 +9,133 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TestingCoe800.Models;
+using System.Data;
+
+
 
 namespace TestingCoe800.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
+   
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private UsersDBEntities db = new UsersDBEntities();
         public ManageController()
         {
         }
-        public ActionResult ManageAccounts()
+
+       
+
+        // GET: User
+        public async Task<ActionResult> ManageAccounts()
         {
-            UsersDBEntities User = new UsersDBEntities();
-            var User_data = User.AspNetUsers.ToList();
-            ViewBag.userdetails = User_data;
+            return View(await db.AspNetUsers.ToListAsync());
+        }
+
+        // GET: User/Details/5
+        public async Task<ActionResult> Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AspNetUser aspNetUser = await db.AspNetUsers.FindAsync(id);
+            if (aspNetUser == null)
+            {
+                return HttpNotFound();
+            }
+            return View(aspNetUser);
+        }
+
+        // GET: User/Create
+        public ActionResult Create()
+        {
             return View();
+        }
+
+        // POST: User/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind(Include = "Email,FirstName,LastName,UserRole")] AspNetUser aspNetUser)
+        {
+            if (ModelState.IsValid)
+            {
+                db.AspNetUsers.Add(aspNetUser);
+                await db.SaveChangesAsync();
+                return RedirectToAction("ManageAccounts");
+            }
+
+            return View(aspNetUser);
+        }
+
+        // GET: User/Edit/5
+        public async Task<ActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AspNetUser aspNetUser = await db.AspNetUsers.FindAsync(id);
+            if (aspNetUser == null)
+            {
+                return HttpNotFound();
+            }
+            return View(aspNetUser);
+        }
+
+        // POST: User/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,UserRole,FirstName,LastName")] AspNetUser aspNetUser)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(aspNetUser).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("ManageAccounts");
+            }
+            return View(aspNetUser);
+        }
+
+        // GET: User/Delete/5
+        public async Task<ActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AspNetUser aspNetUser = await db.AspNetUsers.FindAsync(id);
+            if (aspNetUser == null)
+            {
+                return HttpNotFound();
+            }
+            return View(aspNetUser);
+        }
+
+        // POST: User/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(string id)
+        {
+            AspNetUser aspNetUser = await db.AspNetUsers.FindAsync(id);
+            db.AspNetUsers.Remove(aspNetUser);
+            await db.SaveChangesAsync();
+            return RedirectToAction("ManageAccounts");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
@@ -80,6 +191,21 @@ namespace TestingCoe800.Controllers
             };
             return View(model);
         }
+
+       /* //[HttpPost]// Updating Users
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind(Include = "Email,FirstName,LastName,UserRole")] AspNetUser aspNetUser)
+        {
+            if (ModelState.IsValid)
+            {
+                db.AspNetUsers.Add(aspNetUser);
+                await db.SaveChangesAsync();
+                return RedirectToAction("ManageAccounts");
+            }
+
+            return View(aspNetUser);
+        }*/
+        
 
         //
         // POST: /Manage/RemoveLogin
@@ -328,16 +454,7 @@ namespace TestingCoe800.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && _userManager != null)
-            {
-                _userManager.Dispose();
-                _userManager = null;
-            }
-
-            base.Dispose(disposing);
-        }
+       
 
         #region Helpers
         // Used for XSRF protection when adding external logins
@@ -378,6 +495,10 @@ namespace TestingCoe800.Controllers
             }
             return false;
         }
+       
+       
+       
+
 
         public enum ManageMessageId
         {
