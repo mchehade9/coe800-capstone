@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -10,6 +11,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TestingCoe800.Models;
+using System.Data.Entity;
+using System.Net;
+using System.Data;
 
 namespace TestingCoe800.Controllers
 {
@@ -19,13 +23,14 @@ namespace TestingCoe800.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationDbContext context;
-     /*   public ActionResult ManageAccounts()
-        {
-            UsersDBEntities User = new UsersDBEntities();
-            var User_data = User.AspNetUsers.ToList();
-            ViewBag.userdetails = User_data;
-            return View();
-        }*/
+        private UsersDBEntities db = new UsersDBEntities();
+        /*   public ActionResult ManageAccounts()
+           {
+               UsersDBEntities User = new UsersDBEntities();
+               var User_data = User.AspNetUsers.ToList();
+               ViewBag.userdetails = User_data;
+               return View();
+           }*/
         public AccountController()
         {
             context = new ApplicationDbContext();
@@ -70,7 +75,7 @@ namespace TestingCoe800.Controllers
             return View();
         }
 
-       
+
         //
         // POST: /Account/Login
         [HttpPost]
@@ -162,7 +167,7 @@ namespace TestingCoe800.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserRole = model.UserRoles };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserRole = "Guest", UserRoleFK = (from Role in db.AspNetRoles.AsEnumerable() where Role.Name == "Guest" select Role.Id).FirstOrDefault() };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -174,7 +179,7 @@ namespace TestingCoe800.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles = model.UserRoles);
+                    await this.UserManager.AddToRoleAsync(user.Id, user.UserRole );
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -355,7 +360,7 @@ namespace TestingCoe800.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email, UserRoles = "Guest" });
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email, UserRoles = "Guest"  , UserRolesFk = (from Role in db.AspNetRoles where Role.Name == "Guest" select Role.Id).ToString() });
             }
         }
 
@@ -379,13 +384,14 @@ namespace TestingCoe800.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserRole = model.UserRoles };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserRole = model.UserRoles    , UserRoleFK = (from Role in db.AspNetRoles.AsEnumerable() where Role.Name == "Guest" select Role.Id).FirstOrDefault() };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await UserManager.AddLoginAsync(user.Id, info.Login );
                     if (result.Succeeded)
                     {
+                        await this.UserManager.AddToRoleAsync(user.Id, user.UserRole);
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }

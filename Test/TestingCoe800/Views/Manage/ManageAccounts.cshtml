@@ -6,7 +6,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Register","Account")
+    @Html.ActionLink("Create New", "Register","Manage")
 </p>
 <table class="table">
     <tr>
@@ -48,7 +48,9 @@
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserRole)
+                @*@Html.DisplayFor(modelItem => item.UserRole)*@
+                @Html.DisplayFor(modelItem => item.AspNetRole.Name)
+
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

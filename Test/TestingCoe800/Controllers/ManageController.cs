@@ -49,27 +49,46 @@ namespace TestingCoe800.Controllers
             return View(aspNetUser);
         }
 
-        // GET: User/Create
-        public ActionResult Create()
+        
+        // GET: /Account/Register
+       
+      public ActionResult Register()
         {
+          ViewBag.Name = new SelectList(db.AspNetRoles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name");
             return View();
         }
 
-        // POST: User/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //
+        // POST: /Account/Register
         [HttpPost]
+        
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Email,FirstName,LastName,UserRole")] AspNetUser aspNetUser)
+        public async Task<ActionResult> Register(CreateNewUser model)
         {
             if (ModelState.IsValid)
             {
-                db.AspNetUsers.Add(aspNetUser);
-                await db.SaveChangesAsync();
-                return RedirectToAction("ManageAccounts");
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserRole = model.UserRoles,
+                    UserRoleFK = (from Role in db.AspNetRoles.AsEnumerable() where Role.Name == model.UserRoles.ToString() select Role.Id).FirstOrDefault()
+                };
+
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await this.UserManager.AddToRoleAsync(user.Id, user.UserRole);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    // await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles = model.UserRoles);
+                    return RedirectToAction("ManageAccounts");
+                }
+                AddErrors(result);
             }
 
-            return View(aspNetUser);
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         // GET: User/Edit/5
@@ -92,17 +111,37 @@ namespace TestingCoe800.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,UserRole,FirstName,LastName")] AspNetUser aspNetUser)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Email,UserName,UserRole,FirstName,LastName")] AspNetUser aspNetUser) //,[Bind(Include=("Id,Name"))] As aspNetRole )
         {
             if (ModelState.IsValid)
             {
+                
                 db.Entry(aspNetUser).State = EntityState.Modified;
+               // await this.UserManager.AddToRoleAsync(aspNetUser.Id, aspNetUser.UserRole = aspNetUser.UserRole);
+                var oldUser = this.UserManager.FindById(aspNetUser.Id);
+                var oldRoleId = oldUser.Roles.SingleOrDefault().RoleId;
+                // var oldRoleIdFk = oldUser.UserRoleFK.SingleOrDefault();
+                var oldRoleIdFk = oldUser.UserRoleFK.ToString();
+                var oldRoleName = db.AspNetRoles.SingleOrDefault(r => r.Id == oldRoleId).Name;
+                
+
+
+                if (oldRoleName != aspNetUser.UserRole)
+                {
+                    this.UserManager.RemoveFromRole(aspNetUser.Id, oldRoleName);
+                    this.UserManager.AddToRole(aspNetUser.Id, aspNetUser.UserRole);
+                    var NewRoleId = (from Role in db.AspNetRoles where Role.Name == aspNetUser.UserRole select Role.Id).SingleOrDefault();
+                    AspNetUser User = db.AspNetUsers.Single<AspNetUser>(u => u.Id == aspNetUser.Id);
+                    User.UserRoleFK = NewRoleId; 
+
+                }
+
                 await db.SaveChangesAsync();
                 return RedirectToAction("ManageAccounts");
             }
             return View(aspNetUser);
         }
-
+       
         // GET: User/Delete/5
         public async Task<ActionResult> Delete(string id)
         {

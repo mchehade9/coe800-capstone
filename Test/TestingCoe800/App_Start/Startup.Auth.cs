@@ -35,7 +35,7 @@ namespace TestingCoe800
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -59,20 +59,20 @@ namespace TestingCoe800
             //   appId: "",
             //   appSecret: "");
 
-           app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
                 //ClientId = "964749265947-05l61v2op60j744sa6h478vki8nv7ibc.apps.googleusercontent.com",
-               //ClientSecret = "xCftSD_1AsVxsxWgJzNYw1fR"
+                //ClientSecret = "xCftSD_1AsVxsxWgJzNYw1fR"
 
-               //for local hosting comment the above and uncomment this 
-               //
+                //for local hosting comment the above and uncomment this 
+                //
 
-             ClientId = "964749265947-vp48pkf62j86j19kr08r03iu8d88nlj8.apps.googleusercontent.com",
-               ClientSecret = "inmBnbe1G9RZLqLpV4paHn0L"
-           });
+                ClientId = "964749265947-vp48pkf62j86j19kr08r03iu8d88nlj8.apps.googleusercontent.com",
+                ClientSecret = "inmBnbe1G9RZLqLpV4paHn0L"
+            });
 
             createRoles();
-             void createRoles()
+            void createRoles()
             {
                 ApplicationDbContext context = new ApplicationDbContext();
                 var roleManager = new RoleManager<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>(new RoleStore<IdentityRole>(context));
@@ -113,8 +113,8 @@ namespace TestingCoe800
 
                 }
             }
-        
-    }
+
+        }
 
     }
 }

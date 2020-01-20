@@ -11,6 +11,7 @@ namespace TestingCoe800
     {
         public void Configuration(IAppBuilder app)
         {
+            
             ConfigureAuth(app);
             createRoles();
         }

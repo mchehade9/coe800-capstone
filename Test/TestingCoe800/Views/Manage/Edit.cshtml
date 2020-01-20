@@ -51,6 +51,7 @@
             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
         </div>
     </div>
+    
     <div class="form-group">
         @Html.LabelFor(model => model.UserRole, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -58,17 +59,7 @@
             @Html.ValidationMessageFor(model => model.UserRole, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-       
-        <div class="col-md-10">
-            @Html.ActionLink("Change your password", "ChangePassword")
-        </div>
-    </div>
-   
-
-
-
-
+  
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Save" class="btn btn-default" />

@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace TestingCoe800.Models
 {
 
-    
+  
 
     public class ExternalLoginConfirmationViewModel
     {
+        private static UsersDBEntities db = new UsersDBEntities();
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -18,17 +20,20 @@ namespace TestingCoe800.Models
 
         public string UserRoles { get; set; } = "Guest";
 
-        
+
 
         [Display(Name = "FirstName")]
 
         public string FirstName { get; set; }
-        
+
 
         [Display(Name = "LastName")]
 
-        public string LastName { get; set; } 
+        public string LastName { get; set; }
+        [Required]
+        [Display(Name = "UserRoleFK")]
 
+        public string UserRolesFk { get; set; } = db.AspNetRoles.SingleOrDefault(r => r.Name == "Guest").ToString();
 
 
     }
@@ -36,7 +41,7 @@ namespace TestingCoe800.Models
     public class ExternalLoginListViewModel
     {
         public string ReturnUrl { get; set; }
-        
+
     }
 
     public class SendCodeViewModel
@@ -82,14 +87,64 @@ namespace TestingCoe800.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-      
+
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+
+        /*[Display(Name = "UserRolesFK")]
+
+        public string UserRolesFk { get; set; }*/
     }
+
+    public class CreateNewUser
+    {
+        private static UsersDBEntities db = new UsersDBEntities();
+
+    [Required]
+    [EmailAddress]
+    [Display(Name = "Email")]
+    public string Email { get; set; }
+
+    [Required]
+    [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+    [DataType(DataType.Password)]
+    [Display(Name = "Password")]
+    public string Password { get; set; }
+
+
+    [DataType(DataType.Password)]
+    [Display(Name = "Confirm password")]
+    [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+    public string ConfirmPassword { get; set; }
+
+    [Required]
+    [Display(Name = "FirstName")]
+    public string FirstName { get; set; }
+
+    [Required]
+    [Display(Name = "LastName")]
+    public string LastName { get; set; }
+
+
+
+    [Display(Name = "UserRoleFK")]
+
+    public string UserRoleFK { get; set; }
+
+
+
+    [Display(Name = "UserRoles")]
+
+    public string UserRoles { get; set; }
+}
+    
 
     public class RegisterViewModel
     {
+        private static UsersDBEntities db = new UsersDBEntities();
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -100,7 +155,7 @@ namespace TestingCoe800.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-        
+
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
@@ -108,18 +163,24 @@ namespace TestingCoe800.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name ="FirstName")]
+        [Display(Name = "FirstName")]
         public string FirstName { get; set; }
 
         [Required]
         [Display(Name = "LastName")]
         public string LastName { get; set; }
 
-        [Required]
+       
+
+        [Display(Name = "UserRoleFK")]
+
+        public string UserRoleFK { get; set; } 
+
+
 
         [Display(Name = "UserRoles")]
 
-        public string UserRoles { get; set; } = "Guest";
+        public string UserRoles { get; set; } 
     }
 
     public class ResetPasswordViewModel
@@ -150,4 +211,5 @@ namespace TestingCoe800.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
 }
