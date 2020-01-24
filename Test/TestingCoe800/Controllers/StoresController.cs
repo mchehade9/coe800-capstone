@@ -85,9 +85,10 @@ namespace TestingCoe800.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,StoreName,Location,ManagerIDFk,PhoneNumber")] Store store)
-        {
+        { 
             if (ModelState.IsValid)
             {
+                store.DateOpened = db.Stores.Select(d => d.DateOpened).SingleOrDefault();
                 db.Entry(store).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
