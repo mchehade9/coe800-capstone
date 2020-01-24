@@ -88,7 +88,7 @@ namespace TestingCoe800.Controllers
         { 
             if (ModelState.IsValid)
             {
-                store.DateOpened = db.Stores.Select(d => d.DateOpened).SingleOrDefault();
+                store.DateOpened = db.Stores.Where(d => d.Id == store.Id).Select(d => d.DateOpened).SingleOrDefault();
                 db.Entry(store).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
