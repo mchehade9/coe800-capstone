@@ -205,6 +205,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StoresController.cs" />
+    <Compile Include="Controllers\StoreItemsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -250,6 +251,9 @@
       <DependentUpon>UserModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Store.cs">
+      <DependentUpon>UserModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreItem.cs">
       <DependentUpon>UserModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StoreModel.cs" />
@@ -357,6 +361,11 @@
     <Content Include="Views\Stores\Details.cshtml" />
     <Content Include="Views\Stores\Edit.cshtml" />
     <Content Include="Views\Stores\Index.cshtml" />
+    <Content Include="Views\StoreItems\Create.cshtml" />
+    <Content Include="Views\StoreItems\Delete.cshtml" />
+    <Content Include="Views\StoreItems\Details.cshtml" />
+    <Content Include="Views\StoreItems\Edit.cshtml" />
+    <Content Include="Views\StoreItems\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
