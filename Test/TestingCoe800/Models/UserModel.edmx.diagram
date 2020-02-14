@@ -16,6 +16,8 @@
         <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Table_ToTable" ManuallyRouted="false" />
         <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.StoreItem" Width="1.5" PointX="7.5" PointY="6.75" />
+        <AssociationConnector Association="Model.StoreID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

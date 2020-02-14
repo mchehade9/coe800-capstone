@@ -70,6 +70,15 @@
           <Property Name="LastName" Type="nvarchar(max)" />
           <Property Name="UserRoleFK" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="StoreItems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreIDFk" Type="int" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
         <EntityType Name="Stores">
           <Key>
             <PropertyRef Name="Id" />
@@ -161,6 +170,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="StoreID">
+          <End Role="Stores" Type="Self.Stores" Multiplicity="1" />
+          <End Role="StoreItems" Type="Self.StoreItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StoreItems">
+              <PropertyRef Name="StoreIDFk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -168,6 +189,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StoreItems" EntityType="Self.StoreItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stores" EntityType="Self.Stores" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AspNetUsers_AspNetRoles" Association="Self.FK_AspNetUsers_AspNetRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -192,6 +214,10 @@
           <AssociationSet Name="FK_Table_ToTable" Association="Self.FK_Table_ToTable">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Stores" EntitySet="Stores" />
+          </AssociationSet>
+          <AssociationSet Name="StoreID" Association="Self.StoreID">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="StoreItems" EntitySet="StoreItems" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -275,6 +301,7 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="DateOpened" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Table_ToTable" FromRole="Stores" ToRole="AspNetUsers" />
+          <NavigationProperty Name="StoreItems" Relationship="Model.StoreID" FromRole="Store" ToRole="StoreItem" />
         </EntityType>
         <Association Name="FK_AspNetUsers_AspNetRoles">
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="1" />
@@ -359,7 +386,34 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="StoreItems" EntityType="Model.StoreItem" />
+          <AssociationSet Name="StoreID" Association="Model.StoreID">
+            <End Role="Store" EntitySet="Stores" />
+            <End Role="StoreItem" EntitySet="StoreItems" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="StoreItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreIDFk" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Store" Relationship="Model.StoreID" FromRole="StoreItem" ToRole="Store" />
+        </EntityType>
+        <Association Name="StoreID">
+          <End Type="Model.Store" Role="Store" Multiplicity="1" />
+          <End Type="Model.StoreItem" Role="StoreItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StoreItem">
+              <PropertyRef Name="StoreIDFk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -445,6 +499,16 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="StoreItems">
+            <EntityTypeMapping TypeName="Model.StoreItem">
+              <MappingFragment StoreEntitySet="StoreItems">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="StoreIDFk" ColumnName="StoreIDFk" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
