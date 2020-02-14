@@ -13,9 +13,9 @@ namespace TestingCoe800.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult About()//news and events tab
         {
-            ViewBag.Message = "Your application description page.";
+            //ViewBag.Message = "The latest news and events:";
 
             return View();
         }
