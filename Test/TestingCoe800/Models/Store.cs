@@ -25,7 +25,7 @@ namespace TestingCoe800.Models
         public string Location { get; set; }
         public string ManagerIDFk { get; set; }
         public string PhoneNumber { get; set; }
-        public System.DateTime DateOpened { get; set; }
+        public System.DateTime DateOpened { get; set; } = DateTime.Now;
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
