@@ -26,5 +26,10 @@ namespace TestingCoe800.Controllers
 
             return View();
         }
+
+        public ActionResult StoreTracker()
+        {
+            return View();
+        }
     }
 }
