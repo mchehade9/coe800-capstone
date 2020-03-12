@@ -51,6 +51,13 @@ namespace TestingCoe800.Controllers
             return View();
         }
 
+        //import .csv file for store directory dump
+        public ActionResult Import() 
+        {
+            //ViewBag.StoreIDFK = new 
+            return View();
+        }
+
         // POST: Store__Items/Create      
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

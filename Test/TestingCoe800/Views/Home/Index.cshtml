@@ -13,9 +13,9 @@
     @{ if (User.IsInRole("Admin"))
         {
             <div class="col-md-12">
-                <h2>Welcome Admin </h2>
-                <p>To Find a Store press below</p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Track A store &raquo;</a></p>
+                <h2>Welcome, Mall Admin </h2>
+                <p>Click below to manage mall configuration</p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Mall Configuration &raquo;</a></p>
 
             </div>
         }
@@ -23,9 +23,9 @@
     @{ if (User.IsInRole("Manager"))
         {
             <div class="col-md-12">
-                <h2>Welcome Manager </h2>
-                <p>To Find a Store press below</p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Track A store &raquo;</a></p>
+                <h2>Welcome, Store Manager </h2>
+                <p>Click below to manage store inventory</p>
+                <p><a class="btn btn-default" href="">Manage Store &raquo;</a></p>
             </div>
         }
     }
@@ -33,7 +33,7 @@
         {
             <div class="col-md-12">
                 <h2>Welcome Guest </h2>
-                <p>To Find a Store press below</p>
+                <p>Click below to track a store</p>
                 <p><a class="btn btn-default" href="~/Home/StoreTracker">Store Tracker &raquo;</a></p>
             </div>
         }

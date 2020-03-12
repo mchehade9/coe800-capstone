@@ -280,6 +280,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-TestingCoe800-20200112061341.mdf" />
+    <Content Include="App_Data\aspnet-TestingCoe800-20200112061341_log.ldf">
+      <DependentUpon>aspnet-TestingCoe800-20200112061341.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -289,6 +293,10 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\mall.jpg" />
+    <Content Include="Images\MallMap1\mapgrid_botleft.jpg" />
+    <Content Include="Images\MallMap1\mapgrid_botright.jpg" />
+    <Content Include="Images\MallMap1\mapgrid_topleft.jpg" />
+    <Content Include="Images\MallMap1\mapgrid_topright.jpg" />
     <Content Include="Models\UserModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>UserModel.edmx</DependentUpon>
@@ -369,10 +377,9 @@
     <Content Include="Views\StoreItems\Details.cshtml" />
     <Content Include="Views\StoreItems\Edit.cshtml" />
     <Content Include="Views\StoreItems\Index.cshtml" />
+    <Content Include="Views\Home\StoreTracker.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
