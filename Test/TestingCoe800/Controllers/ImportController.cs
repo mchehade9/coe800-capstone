@@ -40,7 +40,7 @@ namespace TestingCoe800.Controllers
                         ViewBag.Message = "Please select the excel file with .xls or .xlsx extension";
                         return View();
                     }
-
+                     
                     string folderPath = Server.MapPath("~/UploadedFiles/");
                     //Check Directory exists else create one
                     if (!Directory.Exists(folderPath))

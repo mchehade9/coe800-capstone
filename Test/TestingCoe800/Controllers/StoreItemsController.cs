@@ -17,16 +17,16 @@ namespace TestingCoe800.Controllers
     [Authorize(Roles = "Manager")]
     public class StoreItemsController : Controller
     {
-      
+
         private UsersDBEntities db = new UsersDBEntities();
 
-        
+
         // GET: Store__Items
         public ActionResult Index()
         {
             string Manager_Id = User.Identity.GetUserId().ToString();
 
-            var storeItems = db.StoreItems.Include(s => s.Store).Where(s=> s.Store.ManagerIDFk == Manager_Id);
+            var storeItems = db.StoreItems.Include(s => s.Store).Where(s => s.Store.ManagerIDFk == Manager_Id);
 
             return View(storeItems.ToList());
         }
@@ -49,17 +49,13 @@ namespace TestingCoe800.Controllers
         // GET: Store__Items/Create
         public ActionResult Create()
         {
-         string Manager_Id = User.Identity.GetUserId().ToString();
-        ViewBag.StoreIDFk = new SelectList(db.Stores.Where(g => g.ManagerIDFk.ToString() == Manager_Id ) , "Id", "StoreName");
+            string Manager_Id = User.Identity.GetUserId().ToString();
+            ViewBag.StoreIDFk = new SelectList(db.Stores.Where(g => g.ManagerIDFk.ToString() == Manager_Id), "Id", "StoreName");
             return View();
         }
 
         //import .csv file for store directory dump
-        public ActionResult Import() 
-        {
-            //ViewBag.StoreIDFK = new 
-            return View();
-        }
+      
 
         // POST: Store__Items/Create      
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -74,7 +70,7 @@ namespace TestingCoe800.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            
+
             ViewBag.StoreIDFk = new SelectList(db.Stores, "Id", "StoreName", storeItem.StoreIDFk);
             return View(storeItem);
         }
@@ -105,7 +101,7 @@ namespace TestingCoe800.Controllers
         {
             if (ModelState.IsValid)
             {
-                storeItem.StoreIDFk = db.StoreItems.Where(d => d.Id  == storeItem.Id).Select(d => d.StoreIDFk).SingleOrDefault();
+                storeItem.StoreIDFk = db.StoreItems.Where(d => d.Id == storeItem.Id).Select(d => d.StoreIDFk).SingleOrDefault();
                 db.Entry(storeItem).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -144,7 +140,7 @@ namespace TestingCoe800.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Import (HttpPostedFileBase postedFile)
+        public ActionResult Import(HttpPostedFileBase postedFile)
         {
 
             if (postedFile != null)
@@ -219,7 +215,7 @@ namespace TestingCoe800.Controllers
                     }
 
                     //Insert records to Employee table.
-                    using (var context = new UsersDBEntities());
+                    using (var context = new UsersDBEntities()) ;
                     {
                         //Loop through datatable and add employee data to employee table. 
                         foreach (DataRow row in dt.Rows)
