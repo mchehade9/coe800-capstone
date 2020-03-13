@@ -8,7 +8,7 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
-    &nbsp;&nbsp;&nbsp; @*<span class="btn btn-default" href="~/StoreItems/import>"> Import &raquo;</span> *@@Html.ActionLink("Import", "Import")
+    &nbsp;&nbsp;&nbsp;@Html.ActionLink("Import (as .csv)", "Import")
 </p>
 <table class="table">
     <tr>
@@ -36,12 +36,13 @@
             @Html.DisplayFor(modelItem => item.Store.StoreName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-          
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
 
 </table>
+
+<p><b>Please note: When importing your store inventory please make sure the file is in .csv format and that the columns are in the same sequential order as above. </b></p>
