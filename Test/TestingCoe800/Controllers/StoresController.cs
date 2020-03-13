@@ -11,7 +11,7 @@ using TestingCoe800.Models;
 
 namespace TestingCoe800.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class StoresController : Controller
     {
         private UsersDBEntities db = new UsersDBEntities();
@@ -20,6 +20,7 @@ namespace TestingCoe800.Controllers
         public async Task<ActionResult> Index()
         {
             var stores = db.Stores.Include(s => s.AspNetUser);
+            
             return View(await stores.ToListAsync());
         }
 
@@ -41,7 +42,7 @@ namespace TestingCoe800.Controllers
         // GET: Stores/Create
         public ActionResult Create()
         {
-            ViewBag.ManagerIDFk = new SelectList(db.AspNetUsers.Where(g => g.UserRole=="Manager"), "Id", "Email");
+            ViewBag.ManagerIDFk = new SelectList(db.AspNetUsers.Where(g => g.UserRole == "Manager"), "Id", "Email");
             return View();
         }
 
@@ -85,7 +86,7 @@ namespace TestingCoe800.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,StoreName,Location,ManagerIDFk,PhoneNumber")] Store store)
-        { 
+        {
             if (ModelState.IsValid)
             {
                 store.DateOpened = db.Stores.Where(d => d.Id == store.Id).Select(d => d.DateOpened).SingleOrDefault();
@@ -123,6 +124,12 @@ namespace TestingCoe800.Controllers
             return RedirectToAction("Index");
         }
 
+       /* public void CreateStoreTable()
+            {
+            String query = "create table  ";
+            db.Database.ExecuteSqlCommandAsync( query,);
+            }
+            */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -43,10 +43,11 @@
     <form>
 
         <label for="allDevices">All Devices</label><input id="allDevices" type="checkbox" hidden checked>
-
+        <p id="BLE">BLE LISt</p>
 
     </form>
     <p><a class="btn btn-default" onclick="onButtonClick()">List of BLE Devices &raquo;</a></p>
+    
     <script>
 
          async function onButtonClick() {
@@ -66,10 +67,10 @@
                 }]
                 })
                 
-          const device = navigator.bluetooth.requestDevice(options);
-
+             const device = navigator.bluetooth.requestDevice(options);
+             document.getElementById("BLE").innerHTML = + device.id;
         }
-
+         
     </script>
     </div>
 
