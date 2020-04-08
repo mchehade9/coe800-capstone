@@ -11,12 +11,13 @@ using TestingCoe800.Models;
 
 namespace TestingCoe800.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class StoresController : Controller
     {
         private UsersDBEntities db = new UsersDBEntities();
 
         // GET: Stores
+        //[Authorize(Roles = "Guest")]
         public async Task<ActionResult> Index()
         {
             var stores = db.Stores.Include(s => s.AspNetUser);
@@ -25,6 +26,7 @@ namespace TestingCoe800.Controllers
         }
 
         // GET: Stores/Details/5
+
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
