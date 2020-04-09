@@ -1,0 +1,25 @@
+﻿
+<h2>Mall Tracker</h2>
+<p>Your location is shown in <font color="red">red</font></p>
+<p>Your friend's location is shown in <font color="green">green</font></p>
+
+<script>
+    var bluetoothId;
+    var img = document.createElement('img');
+
+    if (bluetoothId == "") {
+        img.src = "~/Images/MallMap1/mapgrid_topleft.jpg";
+    }
+    else if (bluetoothId == "") {
+        img.src = "~/Images/MallMap1/mapgrid_topright.jpg";
+    }
+    else if (bluetoothId == "") {
+        img.src = "~/Images/MallMap1/mapgrid_botleft.jpg";
+    }
+    else if (bluetoothId == "") {
+        img.src = "~/Images/MallMap1/mapgrid_botright.jpg";
+    }
+    //need to be able to display the image based on the url set in the if condition
+    <img src=img.src>
+</script>
+

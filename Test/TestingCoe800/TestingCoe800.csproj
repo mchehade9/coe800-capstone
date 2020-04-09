@@ -378,8 +378,9 @@
     <Content Include="Views\StoreItems\Details.cshtml" />
     <Content Include="Views\StoreItems\Edit.cshtml" />
     <Content Include="Views\StoreItems\Index.cshtml" />
-    <Content Include="Views\Home\StoreTracker.cshtml" />
+    <Content Include="Views\Home\MallTracker.cshtml" />
     <Content Include="Views\StoreItems\import.cshtml" />
+    <Content Include="Views\Home\MallConfig.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

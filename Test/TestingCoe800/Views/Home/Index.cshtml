@@ -22,7 +22,7 @@
             <div class="col-md-12">
                 <h2>Welcome, Mall Admin </h2>
                 <p>Click below to manage mall configuration</p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Mall Configuration &raquo;</a></p>
+                <p><a class="btn btn-default" href="~/Home/MallConfig">Manage Configurations &raquo;</a></p>
 
             </div>
         }
@@ -32,29 +32,30 @@
             <div class="col-md-12">
                 <h2>Welcome, Store Manager </h2>
                 <p>Click below to manage store inventory</p>
-                <p><a class="btn btn-default" href="">Manage Store &raquo;</a></p>
+                <p><a class="btn btn-default" href="~/StoreItems/Index">Manage Store Inventory &raquo;</a></p>
             </div>
         }
     }
     @{ if (User.IsInRole("Guest"))
         {
-            <div class="col-md-12">
-                <h2>Welcome Guest </h2>
-                <p><a class="btn btn-default" href="~/Home/StoreTracker">Friend Tracker &raquo;</a></p>
-                <p id="Redirect" onclick=setTimeout(Direct,2000)>Near By stores</p>
-                <script>
-                    function Direct() {
+        <div class="col-md-12">
+            <h2>Welcome, Guest </h2>
+            <p><a class="btn btn-default" href="~/Home/MallTracker">Mall Tracker &raquo;</a></p>
+            <p><a class="btn btn-default" href="~/Stores/Index">Store Directory &raquo;</a></p>
+            <p id="Redirect" onclick=setTimeout(Direct,2000)>Near By stores</p>
+            <script>
+                function Direct() {
 
-                        document.getElementById("Redirect").innerHTML = "Near By Store is Addidas  , Redirecting";
+                    document.getElementById("Redirect").innerHTML = "Nearby store is Adidas, Redirecting...";
 
-                        setTimeout(function () { window.location.href = "https://www.adidas.ca/en" }, 3000);
+                    setTimeout(function () { window.location.href = "https://www.adidas.ca/en" }, 3000);
 
 
 
-                    }
-                </script>
+                }
+            </script>
 
-            </div>
+        </div>
 
         }
 
