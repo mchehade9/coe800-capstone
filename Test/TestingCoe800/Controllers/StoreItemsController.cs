@@ -35,10 +35,11 @@ namespace TestingCoe800.Controllers
         {
            
 
-            var storeItems = db.StoreItems.Include(s => s.Store).Where(s => s.Store.ManagerIDFk == Manager_Id);
+            var storeItems = db.StoreItems.Include(s => s.Store).Where(s => s.Store.StoreName == "Nike");
 
             return View(storeItems.ToList());
         }
+
         // GET: Store__Items/Details/5
         [Authorize(Roles = "Manager")]
         public ActionResult Details(int? id)
