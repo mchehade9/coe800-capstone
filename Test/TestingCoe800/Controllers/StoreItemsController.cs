@@ -14,7 +14,7 @@ using System.Data.OleDb;
 
 namespace TestingCoe800.Controllers
 {
-    [Authorize(Roles = "Manager")]
+   
     public class StoreItemsController : Controller
     {
 
@@ -31,7 +31,16 @@ namespace TestingCoe800.Controllers
             return View(storeItems.ToList());
         }
 
+        public ActionResult Index_Guest()
+        {
+           
+
+            var storeItems = db.StoreItems.Include(s => s.Store).Where(s => s.Store.ManagerIDFk == Manager_Id);
+
+            return View(storeItems.ToList());
+        }
         // GET: Store__Items/Details/5
+        [Authorize(Roles = "Manager")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -47,6 +56,7 @@ namespace TestingCoe800.Controllers
         }
 
         // GET: Store__Items/Create
+        [Authorize(Roles = "Manager")]
         public ActionResult Create()
         {
             string Manager_Id = User.Identity.GetUserId().ToString();
@@ -62,6 +72,7 @@ namespace TestingCoe800.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
         public ActionResult Create([Bind(Include = "Id,ItemName,StoreIDFk,Price")] StoreItem storeItem)
         {
             if (ModelState.IsValid)
@@ -97,6 +108,7 @@ namespace TestingCoe800.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
         public ActionResult Edit([Bind(Include = "Id,ItemName,Price")] StoreItem storeItem)
         {
             if (ModelState.IsValid)
@@ -111,6 +123,7 @@ namespace TestingCoe800.Controllers
         }
 
         // GET: Store__Items/Delete/5
+        [Authorize(Roles = "Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -128,6 +141,7 @@ namespace TestingCoe800.Controllers
         // POST: Store__Items/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             StoreItem storeItem = db.StoreItems.Find(id);

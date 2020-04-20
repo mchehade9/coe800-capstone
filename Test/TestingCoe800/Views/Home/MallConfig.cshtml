@@ -1,6 +1,224 @@
-﻿
-<h2>Mall Configuration</h2>
-<p>Frank's stuff goes here</p>
+﻿<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/chart-device-data.js" type="text/javascript" charset="utf-8"></script>
+    <script src="server.js" type="text/javascript" charset="utf-8"></script>
+    <script src="esp8266.js" type="text/javascript" charset="utf-8"></script>
+    <link href="css/style.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+
+    <h1 class="flexHeader">
+        <span>
+            <span id="deviceCount">0 devices</span>
+            <select id="listOfDevices"></select>
+        </span>
+
+        <div>
+            <span>
+                Temperature<br>
+                <span id="currentTemperatureData"></span>
+            </span>
+        </div>
+
+        <div>
+            <span>
+                Humidity<br>
+                <span id="currentHumidityData"></span>
+            </span>
+        </div>
+
+        <div>
+            <span>
+                Light<br>
+                <span id="currentLedData"></span>
+            </span><br>
+            <button onclick="window.location.href = 'http://192.168.0.24/';">Switch</button>
+
+        </div>
+
+    </h1><br>
+    <div class="boxedBlack">
+        <canvas id="iotChart"></canvas>
+    </div>
+
+    <a href="https://sensorvisualwebapp.azurewebsites.net/">See Data </a>
 
 
 
+
+
+
+
+    <!--
+    <button onclick= "function client.invokeDeviceMethod(deviceId, methodParams, function (err, result) {
+        if (err) {
+            console.error('Failed to invoke method \'' + methodParams.methodName + '\': ' + err.message);
+        } else {
+            console.log('Response from ' + methodParams.methodName + ' on ' + deviceId + ':');
+            console.log(JSON.stringify(result, null, 2));
+        }
+      }
+      )">Switch
+    </button>
+    -->
+    <!--
+         function runMe(){
+
+
+      var connectionString = 'HostName=capDemo.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=gOeQJ08colf9pQKm79wF7VZeBcOE4+nBdXa0eTA/p4c=';
+
+      var Client = require('azure-iothub').Client;
+
+      var deviceId = 'esp8266';
+
+      // Connect to the service-side endpoint on your IoT hub.
+      var client = Client.fromConnectionString(connectionString);
+
+      // Set the direct method name, payload, and timeout values
+      var methodParams = {
+        methodName: 'toggle',
+        payload: null, // Number of seconds.
+        responseTimeoutInSeconds: 30
+      };
+
+      // Call the direct method on your device using the defined parameters.
+      client.invokeDeviceMethod(deviceId, methodParams, function (err, result) {
+        if (err) {
+            console.error('Failed to invoke method \'' + methodParams.methodName + '\': ' + err.message);
+        } else {
+            console.log('Response from ' + methodParams.methodName + ' on ' + deviceId + ':');
+            console.log(JSON.stringify(result, null, 2));
+        }
+      });
+    }
+    -->
+    <!--
+            <script>
+                $(document).ready(function(){
+                  $("p").click(function(){
+                    $.getScript('public/js/c2dBackend/BackEndApplication.js');
+                  });
+                });
+            </script>
+
+            <p>Switch</p>
+    -->
+    <!--
+            <script type="text/javascript">
+            $(function () {
+                $('#button').click(function () {
+
+                    console.log('button clicked');
+
+                    $.ajax({
+                        type: 'POST',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        url: 'http://localhost:3000/',
+                        success: function (data) {
+                            console.log('success');
+                            console.log(JSON.stringify(data));
+                        }
+                    });
+                });
+            });
+        </script>
+    -->
+</body>
+
+
+
+
+
+
+
+<!-- 
+<button onclick= "function client.invokeDeviceMethod(deviceId, methodParams, function (err, result) {
+    if (err) {
+        console.error('Failed to invoke method \'' + methodParams.methodName + '\': ' + err.message);
+    } else {
+        console.log('Response from ' + methodParams.methodName + ' on ' + deviceId + ':');
+        console.log(JSON.stringify(result, null, 2));
+    }
+  }
+  )">Switch
+</button>
+-->
+
+
+<!--
+     function runMe(){
+
+
+  var connectionString = 'HostName=capDemo.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=gOeQJ08colf9pQKm79wF7VZeBcOE4+nBdXa0eTA/p4c=';
+
+  var Client = require('azure-iothub').Client;
+  
+  var deviceId = 'esp8266';
+  
+  // Connect to the service-side endpoint on your IoT hub.
+  var client = Client.fromConnectionString(connectionString);
+  
+  // Set the direct method name, payload, and timeout values
+  var methodParams = {
+    methodName: 'toggle',
+    payload: null, // Number of seconds.
+    responseTimeoutInSeconds: 30
+  };
+  
+  // Call the direct method on your device using the defined parameters.
+  client.invokeDeviceMethod(deviceId, methodParams, function (err, result) {
+    if (err) {
+        console.error('Failed to invoke method \'' + methodParams.methodName + '\': ' + err.message);
+    } else {
+        console.log('Response from ' + methodParams.methodName + ' on ' + deviceId + ':');
+        console.log(JSON.stringify(result, null, 2));
+    }
+  });
+}
+-->
+
+
+<!--
+        <script>
+            $(document).ready(function(){
+              $("p").click(function(){
+                $.getScript('public/js/c2dBackend/BackEndApplication.js');
+              });
+            });
+        </script>
+
+        <p>Switch</p>
+-->
+
+
+<!--
+        <script type="text/javascript">
+        $(function () {
+            $('#button').click(function () {
+             
+                console.log('button clicked');
+
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    url: 'http://localhost:3000/',
+                    success: function (data) {
+                        console.log('success');
+                        console.log(JSON.stringify(data));
+                    }
+                });
+            });
+        });
+    </script>
+--></body>

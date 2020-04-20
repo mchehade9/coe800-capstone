@@ -298,6 +298,7 @@
     <Content Include="Images\MallMap1\mapgrid_botright.jpg" />
     <Content Include="Images\MallMap1\mapgrid_topleft.jpg" />
     <Content Include="Images\MallMap1\mapgrid_topright.jpg" />
+    <Content Include="Images\MallMap1\unnamed.jpg" />
     <Content Include="Models\UserModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>UserModel.edmx</DependentUpon>
@@ -381,6 +382,7 @@
     <Content Include="Views\Home\MallTracker.cshtml" />
     <Content Include="Views\StoreItems\import.cshtml" />
     <Content Include="Views\Home\MallConfig.cshtml" />
+    <Content Include="Views\StoreItems\Index_Guest.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
