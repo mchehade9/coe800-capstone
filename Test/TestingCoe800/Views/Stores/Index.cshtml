@@ -4,7 +4,7 @@
     ViewBag.Title = "Stores";
 }
 
-<h2>Index</h2>
+<h2>Stores</h2>
 @{ if (User.IsInRole("Admin"))
     {
         <p>
@@ -51,6 +51,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+             <td>
+                
             </td>
             @{ if (User.IsInRole("Admin"))
                 {

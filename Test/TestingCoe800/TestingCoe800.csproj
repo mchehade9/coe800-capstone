@@ -294,6 +294,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\mall.jpg" />
+    <Content Include="Images\MallMap1\mall_blur.jpg" />
     <Content Include="Images\MallMap1\mapgrid_botleft.jpg" />
     <Content Include="Images\MallMap1\mapgrid_botright.jpg" />
     <Content Include="Images\MallMap1\mapgrid_topleft.jpg" />
